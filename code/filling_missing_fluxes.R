@@ -70,7 +70,8 @@ fluxes.fill = fluxes |>
   summarize(flux_filled = mean(downup, updown)) |>
   mutate( #making things easier to make graphs later
     time = hms::as_hms(datetime),
-    site = factor(site, levels = c("vikesland", "hogsete", "joasete", "liahovden"))
+    site = factor(site, levels = c("vikesland", "hogsete", "joasete", "liahovden")),
+    type = factor(type, levels = c("ER", "NEE", "GPP"))
   )
 
 # Visualize on the diurnal to check for egregious mistakes ----
@@ -125,6 +126,7 @@ fluxes_cumul <- fluxes.fill %>%
   ) +
   facet_wrap(~type, scales = "free", ncol = 1) +
   theme_bw() +
+  labs(title = "Fluxes filled") +
   theme(
     # strip.text.x = element_blank(),
     axis.title.x = element_blank(),
